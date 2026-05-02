@@ -1,6 +1,7 @@
 // Aiden K Morris
-// C++ translation of tutorial by Dr. Laurie Tratt
+// C++ translation of a tutorial by Dr. Laurie Tratt
 // Link: https://youtu.be/Q2UDHY5as90?si=wbjvZ6I1SvFIPA_c
+// See README.md for what the original version included and what I have added
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -78,8 +79,40 @@ std::string eval_expr(std::string s) {
                 std::string val = std::to_string(left * right);
                 st.push(val);
             }
+            else if(tok == "==") {
+                if(left == right) {
+                    st.push("1");
+                }
+                else {
+                    st.push("0");
+                }
+            }
             else if(tok == ">=") {
                 if(left >= right) {
+                    st.push("1");
+                }
+                else {
+                    st.push("0");
+                }
+            }
+            else if(tok == "<=") {
+                if(left <= right) {
+                    st.push("1");
+                }
+                else {
+                    st.push("0");
+                }
+            }
+            else if(tok == ">") {
+                if(left > right) {
+                    st.push("1");
+                }
+                else {
+                    st.push("0");
+                }
+            }
+            else if(tok == "<") {
+                if(left < right) {
                     st.push("1");
                 }
                 else {
@@ -109,19 +142,37 @@ int main() {
         std::string line = lines[pc];
         std::vector<std::string> lineVec = split(line, 1);
 
-        if(lineVec[0] == "while") {
+        if(lineVec[0] == "") {
+            pc++;
+        }
+        else if(lineVec[0] == "if") {
             if(eval_expr(lineVec[1]) == "1") {
                 pc++;
             }
             else {
-                while(split(lines[pc], 1)[0] != "end") {
+                while(split(lines[pc], 1)[0] != "endif") {
                     pc++;
                 }
 
                 pc++;
             }
         }
-        else if(lineVec[0] == "end") {
+        else if(lineVec[0] == "endif") {
+            pc++;
+        }
+        else if(lineVec[0] == "while") {
+            if(eval_expr(lineVec[1]) == "1") {
+                pc++;
+            }
+            else {
+                while(split(lines[pc], 1)[0] != "endwhile") {
+                    pc++;
+                }
+
+                pc++;
+            }
+        }
+        else if(lineVec[0] == "endwhile") {
             while(split(lines[pc], 1)[0] != "while") {
                 pc--;
             }
