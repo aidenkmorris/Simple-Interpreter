@@ -10,6 +10,10 @@ Building on the ground work laid down in Dr. Tratt's tutorial, I have added:
 - `if` statements
 - `==`, `<=`, `>`, and `<` operators
 
+## Known Issues
+- Nested `while` loops are not functional
+- Extra `endif`s will map to future `if`s
+
 ## Syntax
 ### Declaring variables
 ```

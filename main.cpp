@@ -16,7 +16,7 @@ std::unordered_map<std::string, std::string> vars;
 
 // My version of Python's split() function.
 // Optional max_split determines number of times to split
-//   before keeping the rest of the string as the last element
+// before keeping the rest of the string as the last element.
 std::vector<std::string> split(std::string s, const int max_split = -1) {
     std::vector<std::string> tokens;
     
@@ -136,7 +136,15 @@ int main() {
         lines.push_back(line);
     }
 
+    // Program counter - determines what line we are on.
     int pc = 0;
+    
+    // The number of failed ifs encountered to skip 
+    // to correct endif on failed condition.
+    int count_if = 0;
+
+    // The number of endifs encountered.
+    int count_endif = 0;
 
     while(pc < lines.size()) {
         std::string line = lines[pc];
@@ -150,15 +158,28 @@ int main() {
                 pc++;
             }
             else {
-                while(split(lines[pc], 1)[0] != "endif") {
-                    pc++;
-                }
-
                 pc++;
+                count_if++;
+
+                // Advance line by line counting the number of nested 
+                // ifs and endifs. Skip to the correct endif.
+                while(count_endif < count_if) {
+                    while(split(lines[pc], 1)[0] != "endif") {
+                        if(split(lines[pc], 1)[0] == "if") {
+                            count_if++;
+                        }
+
+                        pc++;
+                    }
+
+                    pc++;
+                    count_endif++;
+                }
             }
         }
         else if(lineVec[0] == "endif") {
             pc++;
+            count_endif++;
         }
         else if(lineVec[0] == "while") {
             if(eval_expr(lineVec[1]) == "1") {
