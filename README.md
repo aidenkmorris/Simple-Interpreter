@@ -6,9 +6,10 @@ This version supports some basic integer arithmetic and while loop control flow.
 
 ## Continuation
 Building on the ground work laid down in Dr. Tratt's tutorial, I have added:
+- `==`, `!=`, `<=`, `>`, and `<` operators
 - empty line handling
 - `if` statements
-- `==`, `<=`, `>`, and `<` operators
+- `if-else` statements
 
 ## Known Issues
 - Nested `while` loops are not functional
@@ -20,7 +21,9 @@ Building on the ground work laid down in Dr. Tratt's tutorial, I have added:
 x = 1
 y = 2 3 +
 z = x y *
+w = 1 2 + 3 4 + *
 ```
+Note: the expression assigned to `w` is equivalent to (1 + 2) * (3 + 4)
 
 ### If statements
 ```
@@ -36,6 +39,15 @@ y = 0
 
 if x 5 >
     y = 1
+endif
+```
+
+### If-else statements
+```
+if <condition>
+    <code>
+else
+    <code>
 endif
 ```
 
@@ -92,4 +104,22 @@ if x 0 >
         endif
     endif
 endif
+```
+
+If/else statement
+```
+i = 0
+x = 0
+count = 0
+
+while i 10 <
+    if x 0 ==
+        count = count 1 +
+        x = x 1 +
+    else
+        x = x 1 -
+    endif
+
+    i = i 1 +
+endwhile
 ```

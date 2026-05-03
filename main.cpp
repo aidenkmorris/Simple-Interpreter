@@ -169,6 +169,9 @@ int main() {
                 pc++;
                 count_if++;
 
+                // Tracks if an else branch exists on if statement fail
+                bool branch_else = false;
+
                 // Advance line by line counting the number of nested 
                 // ifs and endifs. Skip to the correct endif.
                 while(count_endif < count_if) {
@@ -178,15 +181,34 @@ int main() {
                         if(keyword == "if") {
                             count_if++;
                         }
+                        else if(keyword == "else") {
+                            branch_else = true;
+                            break;
+                        }
 
                         pc++;
                         keyword = split(lines[pc], 1)[0];
                     }
 
                     pc++;
+
+                    // Skip to else branch
+                    if(branch_else) {
+                        break;
+                    }
+
                     count_endif++;
                 }
             }
+        }
+        else if(lineVec[0] == "else") {
+            // Note: this is reached when an if-else 
+            // statement's if branch is successful
+            while(split(lines[pc], 1)[0] != "endif") {
+                pc++;
+            }
+
+            pc++;
         }
         else if(lineVec[0] == "endif") {
             pc++;
