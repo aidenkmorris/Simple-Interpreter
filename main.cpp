@@ -87,6 +87,14 @@ std::string eval_expr(std::string s) {
                     st.push("0");
                 }
             }
+            else if(tok == "!=") {
+                if(left != right) {
+                    st.push("1");
+                }
+                else {
+                    st.push("0");
+                }
+            }
             else if(tok == ">=") {
                 if(left >= right) {
                     st.push("1");
@@ -164,12 +172,15 @@ int main() {
                 // Advance line by line counting the number of nested 
                 // ifs and endifs. Skip to the correct endif.
                 while(count_endif < count_if) {
-                    while(split(lines[pc], 1)[0] != "endif") {
-                        if(split(lines[pc], 1)[0] == "if") {
+                    std::string keyword = split(lines[pc], 1)[0];
+
+                    while(keyword != "endif") {
+                        if(keyword == "if") {
                             count_if++;
                         }
 
                         pc++;
+                        keyword = split(lines[pc], 1)[0];
                     }
 
                     pc++;

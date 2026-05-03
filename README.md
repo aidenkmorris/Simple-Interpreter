@@ -59,6 +59,7 @@ endwhile
 - `-` subtraction
 - `*` multiplication
 - `==` equal to
+- `!=` not equal to
 - `>=` greater than or equal to
 - `<=` less than or equal to
 - `>` greater than
