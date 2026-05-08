@@ -2,7 +2,7 @@
 ## Credits
 The base version of this simple interpreter was provided through a [tutorial by Dr. Laurie Tratt](https://youtu.be/Q2UDHY5as90?si=wbjvZ6I1SvFIPA_c).
 I then decided to translate the program to C++ for practice.
-This version supports some basic integer arithmetic and while loop control flow. The output is the values of all variables.
+This version supported some basic integer arithmetic and while loop control flow. The output was the values of all variables.
 
 ## Continuation
 Building on the ground work laid down in Dr. Tratt's tutorial, I have added:
@@ -10,9 +10,13 @@ Building on the ground work laid down in Dr. Tratt's tutorial, I have added:
 - empty line handling
 - `if` statements
 - `if-else` statements
+- Basic `for` loops
+
+Output is simply the values of all variables at the time of successful termination.
 
 ## Known Issues
 - Nested `while` loops are not functional
+- Nested `for` loops are not functional
 - Extra `endif`s will map to future `if`s
 
 ## Syntax
@@ -64,6 +68,17 @@ while x 1 >=
     x = x 1 -
 endwhile
 ```
+
+### For loops
+```
+for <initializer>
+until <condition>
+    <code>
+endfor
+```
+Note that the loop will run `until` the condition is met.
+
+As of now, the increment is always by 1.
 
 ### Supported operators
 - `=` assignment
@@ -122,4 +137,20 @@ while i 10 <
 
     i = i 1 +
 endwhile
+```
+
+For loops using until
+```
+x = 1
+y = 1
+
+for i = 0
+until i 5 ==
+    x = x 2 *
+endfor
+
+for i = 0
+until y 30 >
+    y = y 2 *
+endfor
 ```

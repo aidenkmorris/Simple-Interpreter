@@ -231,6 +231,38 @@ int main() {
                 pc--;
             }
         }
+        else if(lineVec[0] == "for") {
+            lineVec = split(lineVec[1], 2);
+            std::string name = lineVec[0];
+            std::string expr = lineVec[2];
+
+            vars[name] = eval_expr(expr);
+            pc++;
+        }
+        else if(lineVec[0] == "until") {
+            // Loop if condition is false
+            if(eval_expr(split(lines[pc], 1)[1]) == "0") {
+                pc++;
+            }
+            else {
+                while(split(lines[pc], 1)[0] != "endfor") {
+                    pc++;
+                }
+
+                pc++;
+            }
+        }
+        else if(lineVec[0] == "endfor") {
+            while(split(lines[pc], 1)[0] != "for") {
+                pc--;
+            }
+
+            lineVec = split(split(lines[pc], 1)[1], 2);
+            std::string name = lineVec[0];
+
+            vars[name] = std::to_string(std::stoi(vars[name]) + 1);
+            pc++;
+        }
         else {
             lineVec = split(line, 2);
             std::string name = lineVec[0];
