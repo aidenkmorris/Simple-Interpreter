@@ -8,6 +8,7 @@ This version supported some basic integer arithmetic and while loop control flow
 Building on the ground work laid down in Dr. Tratt's tutorial, I have added:
 - `==`, `!=`, `<=`, `>`, and `<` operators
 - empty line handling
+- comments
 - `if` statements
 - `if-else` statements
 - Basic `for` loops
@@ -76,6 +77,17 @@ until <condition>
     <code>
 endfor
 ```
+
+Example: 
+```
+counter = 0
+
+for x = 0
+until x 5 ==
+    counter = counter 1 +
+endfor
+```
+
 Note that the loop will run `until` the condition is met.
 
 As of now, the increment is always by 1.
@@ -91,6 +103,15 @@ As of now, the increment is always by 1.
 - `<=` less than or equal to
 - `>` greater than
 - `<` less than
+
+### Comments
+```
+// This is a comment
+
+//This is another comment
+
+x = 10 // This is a third comment
+```
 
 ### Sample programs
 Calculate factorial

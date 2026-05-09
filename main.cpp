@@ -156,6 +156,13 @@ int main() {
 
     while(pc < lines.size()) {
         std::string line = lines[pc];
+
+        auto commentIndex = line.find("//");
+
+        if(commentIndex != std::string::npos) {
+            line = line.substr(0, commentIndex);
+        }
+
         std::vector<std::string> lineVec = split(line, 1);
 
         if(lineVec[0] == "") {
