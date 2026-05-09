@@ -79,6 +79,14 @@ std::string eval_expr(std::string s) {
                 std::string val = std::to_string(left * right);
                 st.push(val);
             }
+            else if(tok == "/") {
+                std::string val = std::to_string(left / right);
+                st.push(val);
+            }
+            else if(tok == "%") {
+                std::string val = std::to_string(left % right);
+                st.push(val);
+            }
             else if(tok == "==") {
                 if(left == right) {
                     st.push("1");

@@ -6,7 +6,7 @@ This version supported some basic integer arithmetic and while loop control flow
 
 ## Continuation
 Building on the ground work laid down in Dr. Tratt's tutorial, I have added:
-- `==`, `!=`, `<=`, `>`, and `<` operators
+- `/`, `%`, `==`, `!=`, `<=`, `>`, and `<` operators
 - empty line handling
 - comments
 - `if` statements
@@ -19,6 +19,7 @@ Output is simply the values of all variables at the time of successful terminati
 - Nested `while` loops are not functional
 - Nested `for` loops are not functional
 - Extra `endif`s will map to future `if`s
+- No proper error handling/messaging is currently present
 
 ## Syntax
 ### Declaring variables
@@ -97,6 +98,8 @@ As of now, the increment is always by 1.
 - `+` addition
 - `-` subtraction
 - `*` multiplication
+- `/` division
+- `%` modulo
 - `==` equal to
 - `!=` not equal to
 - `>=` greater than or equal to
@@ -174,4 +177,23 @@ for i = 0
 until y 30 >
     y = y 2 *
 endfor
+```
+
+Collatz conjecture step counter
+```
+// Change this value
+value = 6
+
+steps = 0
+
+while value 1 !=
+    // (value % 2) == 0
+    if value 2 % 0 ==
+        value = value 2 /
+    else
+        value = value 3 * 1 +
+    endif
+
+    steps = steps 1 +
+endwhile
 ```
