@@ -278,6 +278,32 @@ int main() {
             vars[name] = std::to_string(std::stoi(vars[name]) + 1);
             pc++;
         }
+        else if(lineVec[0] == "print" || lineVec[0] == "printline") {
+            std::string text = lineVec[1];
+
+            // Replace variable names with values
+            auto variableIndex = text.find("~");
+            int lastEscapeChar = 0;
+
+            while(variableIndex != std::string::npos) {
+                std::string name = split(text.substr(variableIndex + 1), 1)[0];
+
+                if(name[0] == '~') {
+                    text.erase(variableIndex, 1);
+                    lastEscapeChar = variableIndex;
+                }
+                else {
+                    text.erase(variableIndex, name.size() + 1);
+                    text.insert(variableIndex, vars[name]);
+                }
+
+                variableIndex = text.find("~", lastEscapeChar + 1);
+            }
+
+            // Add newline character if printline
+            std::cout << text << ((lineVec[0] == "printline") ? "\n" : "");
+            pc++;
+        }
         else {
             lineVec = split(line, 2);
             std::string name = lineVec[0];
@@ -286,10 +312,6 @@ int main() {
             vars[name] = eval_expr(expr);
             pc++;
         }
-    }
-
-    for(auto v : vars) {
-        std::cout << v.first << " " << v.second << std::endl;
     }
 
     return 0;

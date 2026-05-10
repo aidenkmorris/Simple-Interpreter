@@ -12,8 +12,7 @@ Building on the ground work laid down in Dr. Tratt's tutorial, I have added:
 - `if` statements
 - `if-else` statements
 - Basic `for` loops
-
-Output is simply the values of all variables at the time of successful termination.
+- `print` and `printline` statements with variable referencing
 
 ## Known Issues
 - Nested `while` loops are not functional
@@ -30,6 +29,38 @@ z = x y *
 w = 1 2 + 3 4 + *
 ```
 Note: the expression assigned to `w` is equivalent to (1 + 2) * (3 + 4)
+
+### Print and printline statements
+```
+print <text>
+printline <text>
+```
+
+Example:
+```
+printline Hello, world!
+print This will be on a newline...
+print but this will be on the same line
+```
+
+To reference variables in `print`/`printline` statements, use the prefix `~` like so:
+```
+x = 42
+
+// x
+printline x
+
+// 42
+printline ~x
+
+// ~x
+printline ~~x
+
+// ~42
+printline ~~~x
+```
+
+Note that `~~` can be used to print a literal `~`.
 
 ### If statements
 ```
@@ -179,10 +210,12 @@ until y 30 >
 endfor
 ```
 
-Collatz conjecture step counter
+Collatz Conjecture Implementation
 ```
 // Change this value
 value = 6
+
+printline Starting value: ~value
 
 steps = 0
 
@@ -195,5 +228,6 @@ while value 1 !=
     endif
 
     steps = steps 1 +
+    printline Step ~steps -> ~value
 endwhile
 ```
