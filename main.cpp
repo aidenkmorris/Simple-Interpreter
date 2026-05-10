@@ -278,6 +278,17 @@ int main() {
             vars[name] = std::to_string(std::stoi(vars[name]) + 1);
             pc++;
         }
+        else if(lineVec[0] == "input") {
+            std::string name = lineVec[1];
+
+            // Right trim the variable name
+            while(!name.empty() && std::isspace(name.back())) {
+                name.pop_back();
+            }
+
+            std::cin >> vars[name];
+            pc++;
+        }
         else if(lineVec[0] == "print" || lineVec[0] == "printline") {
             std::string text = lineVec[1];
 

@@ -12,7 +12,9 @@ Building on the ground work laid down in Dr. Tratt's tutorial, I have added:
 - `if` statements
 - `if-else` statements
 - Basic `for` loops
-- `print` and `printline` statements with variable referencing
+- `print` statements
+- `printline` statements
+- `input` statements
 
 ## Known Issues
 - Nested `while` loops are not functional
@@ -21,6 +23,20 @@ Building on the ground work laid down in Dr. Tratt's tutorial, I have added:
 - No proper error handling/messaging is currently present
 
 ## Syntax
+### Supported operators
+- `=` assignment
+- `+` addition
+- `-` subtraction
+- `*` multiplication
+- `/` division
+- `%` modulo
+- `==` equal to
+- `!=` not equal to
+- `>=` greater than or equal to
+- `<=` less than or equal to
+- `>` greater than
+- `<` less than
+
 ### Declaring variables
 ```
 x = 1
@@ -61,6 +77,32 @@ printline ~~~x
 ```
 
 Note that `~~` can be used to print a literal `~`.
+
+### Input statements
+```
+input <variable>
+```
+
+`input` statements can be used to create new variables or modify existing variables.
+
+Example:
+```
+input x
+printline x equals ~x
+
+y = 1
+input y
+printline y now equals ~y
+```
+
+### Comments
+```
+// This is a comment
+
+//This is another comment
+
+x = 10 // This is a third comment
+```
 
 ### If statements
 ```
@@ -124,31 +166,8 @@ Note that the loop will run `until` the condition is met.
 
 As of now, the increment is always by 1.
 
-### Supported operators
-- `=` assignment
-- `+` addition
-- `-` subtraction
-- `*` multiplication
-- `/` division
-- `%` modulo
-- `==` equal to
-- `!=` not equal to
-- `>=` greater than or equal to
-- `<=` less than or equal to
-- `>` greater than
-- `<` less than
-
-### Comments
-```
-// This is a comment
-
-//This is another comment
-
-x = 10 // This is a third comment
-```
-
-### Sample programs
-Calculate factorial
+## Sample programs
+### Calculate factorial
 ```
 n = 5
 r = 1
@@ -157,8 +176,11 @@ while n 1 >=
     n = n 1 -
 endwhile
 ```
+This was the original program demonstrated by Dr. Tratt and 
+full extent of his interpreter's capabilites (the original
+version used `end` rather than `endwhile`).
 
-Nested if statements
+### Nested if statements
 ```
 x = 2
 counter = 0
@@ -174,9 +196,11 @@ if x 0 >
         endif
     endif
 endif
+
+printline counter: ~counter
 ```
 
-If/else statement
+### If/else statement
 ```
 i = 0
 x = 0
@@ -192,9 +216,11 @@ while i 10 <
 
     i = i 1 +
 endwhile
+
+printline count: ~count
 ```
 
-For loops using until
+### For loops using until
 ```
 x = 1
 y = 1
@@ -208,12 +234,16 @@ for i = 0
 until y 30 >
     y = y 2 *
 endfor
+
+printline x: ~x
+printline y: ~y
 ```
 
-Collatz Conjecture Implementation
+### Collatz Conjecture Implementation
 ```
 // Change this value
-value = 6
+print Please input a positive integer: 
+input value
 
 printline Starting value: ~value
 
