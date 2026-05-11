@@ -18,9 +18,9 @@ Building on the ground work laid down in Dr. Tratt's tutorial, I have added:
 - `input` statements
 
 ## Known Issues
-- Nested `for` loops are not functional
 - Extra `endif`s will map to future `if`s
 - No proper error handling/messaging is currently present
+- Code in between `for` and `until` will execute (n + 1) times, where n is the number of times the loop runs
 
 ## Syntax
 ### Supported operators
@@ -264,6 +264,21 @@ endfor
 
 printline x: ~x
 printline y: ~y
+```
+
+### Nested for loops
+```
+counter = 0
+
+for x = 0
+until x 5 ==
+    for y = 0
+    until y 3 ==
+        counter = counter 1 +
+    endfor
+endfor
+
+printline ~counter
 ```
 
 ### Collatz Conjecture Implementation

@@ -155,18 +155,20 @@ int main() {
     // Program counter - determines what line we are on.
     int pc = 0;
     
-    // The number of failed ifs encountered to skip 
-    // to correct endif on failed condition.
+    // The number of statements encountered to skip 
+    // to correct one on failed condition or loop
     int count_if = 0;
     int count_while = 0;
+    int count_for = 0;
 
-    // The number of endifs encountered.
     int count_endif = 0;
     int count_endwhile = 0;
+    int count_endfor = 0;
 
     while(pc < lines.size()) {
         std::string line = lines[pc];
 
+        // Remove any comments entirely from the line
         auto commentIndex = line.find("//");
 
         if(commentIndex != std::string::npos) {
@@ -298,17 +300,53 @@ int main() {
                 pc++;
             }
             else {
-                while(split(lines[pc], 1)[0] != "endfor") {
-                    pc++;
-                }
-
+                count_for++;
                 pc++;
+
+                // Advance line by line counting the number of nested 
+                // fors and endfors. Skip to the correct endfor
+                while(count_endfor < count_for) {
+                    std::string keyword = split(lines[pc], 1)[0];
+
+                    while(keyword != "endfor") {
+                        if(keyword == "for") {
+                            count_for++;
+                        }
+
+                        pc++;
+                        keyword = split(lines[pc], 1)[0];
+                    }
+
+                    pc++;
+                    count_endfor++;
+                }
             }
         }
         else if(lineVec[0] == "endfor") {
-            while(split(lines[pc], 1)[0] != "for") {
+            count_endfor++;
+            pc--;
+
+            // Backtrack line by line counting the number of nested 
+            // fors and endfors. Backtrack to the correct for
+            while(count_for < count_endfor) {
+                std::string keyword = split(lines[pc], 1)[0];
+
+                while(keyword != "for") {
+                    if(keyword == "endfor") {
+                        count_endfor++;
+                    }
+
+                    pc--;
+                    keyword = split(lines[pc], 1)[0];
+                }
+
+                count_for++;
                 pc--;
             }
+
+            // Continue from matching for
+            // rather than the line before
+            pc++;
 
             lineVec = split(split(lines[pc], 1)[1], 2);
             std::string name = lineVec[0];
