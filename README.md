@@ -18,7 +18,6 @@ Building on the ground work laid down in Dr. Tratt's tutorial, I have added:
 - `input` statements
 
 ## Known Issues
-- Extra `endif`s will map to future `if`s
 - No proper error handling/messaging is currently present
 - Code in between `for` and `until` will execute (n + 1) times, where n is the number of times the loop runs
 

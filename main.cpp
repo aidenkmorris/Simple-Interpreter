@@ -157,6 +157,7 @@ int main() {
     
     // The number of statements encountered to skip 
     // to correct one on failed condition or loop
+    // Note: only failed ifs are tracked
     int count_if = 0;
     int count_while = 0;
     int count_for = 0;
@@ -210,13 +211,12 @@ int main() {
                     }
 
                     pc++;
+                    count_endif++;
 
                     // Skip to else branch
                     if(branch_else) {
                         break;
                     }
-
-                    count_endif++;
                 }
             }
         }
@@ -231,7 +231,6 @@ int main() {
         }
         else if(lineVec[0] == "endif") {
             pc++;
-            count_endif++;
         }
         else if(lineVec[0] == "while") {
             if(eval_expr(lineVec[1]) == "1") {
