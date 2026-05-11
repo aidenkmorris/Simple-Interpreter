@@ -7,6 +7,7 @@ This version supported some basic integer arithmetic and while loop control flow
 ## Continuation
 Building on the ground work laid down in Dr. Tratt's tutorial, I have added:
 - `/`, `%`, `==`, `!=`, `<=`, `>`, and `<` operators
+- functional nesting of `while` loops
 - empty line handling
 - comments
 - `if` statements
@@ -17,7 +18,6 @@ Building on the ground work laid down in Dr. Tratt's tutorial, I have added:
 - `input` statements
 
 ## Known Issues
-- Nested `while` loops are not functional
 - Nested `for` loops are not functional
 - Extra `endif`s will map to future `if`s
 - No proper error handling/messaging is currently present
@@ -171,14 +171,25 @@ As of now, the increment is always by 1.
 ```
 n = 5
 r = 1
+
 while n 1 >=
     r = r n *
     n = n 1 -
 endwhile
+
+printline ~r
 ```
 This was the original program demonstrated by Dr. Tratt and 
-full extent of his interpreter's capabilites (the original
-version used `end` rather than `endwhile`).
+full extent of his interpreter's capabilites. The original
+version looked like the following (now incorrect) code:
+```
+n = 5
+r = 1
+while n 1 >=
+    r = r n *
+    n = n 1 -
+end
+```
 
 ### Nested if statements
 ```
@@ -218,6 +229,22 @@ while i 10 <
 endwhile
 
 printline count: ~count
+```
+
+### Nested while loops
+```
+counter = 0
+
+while counter 10 <
+    i = 0
+
+    while i 3 <
+        counter = counter 1 +
+        i = i 1 +
+    endwhile
+endwhile
+
+printline ~counter
 ```
 
 ### For loops using until

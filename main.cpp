@@ -158,9 +158,11 @@ int main() {
     // The number of failed ifs encountered to skip 
     // to correct endif on failed condition.
     int count_if = 0;
+    int count_while = 0;
 
     // The number of endifs encountered.
     int count_endif = 0;
+    int count_endwhile = 0;
 
     while(pc < lines.size()) {
         std::string line = lines[pc];
@@ -234,17 +236,53 @@ int main() {
                 pc++;
             }
             else {
-                while(split(lines[pc], 1)[0] != "endwhile") {
-                    pc++;
-                }
-
+                count_while++;
                 pc++;
+
+                // Advance line by line counting the number of nested 
+                // whiles and endwhiles. Skip to the correct endwhile
+                while(count_endwhile < count_while) {
+                    std::string keyword = split(lines[pc], 1)[0];
+
+                    while(keyword != "endwhile") {
+                        if(keyword == "while") {
+                            count_while++;
+                        }
+
+                        pc++;
+                        keyword = split(lines[pc], 1)[0];
+                    }
+
+                    pc++;
+                    count_endwhile++;
+                }
             }
         }
         else if(lineVec[0] == "endwhile") {
-            while(split(lines[pc], 1)[0] != "while") {
+            count_endwhile++;
+            pc--;
+
+            // Backtrack line by line counting the number of nested 
+            // whiles and endwhiles. Backtrack to the correct while
+            while(count_while < count_endwhile) {
+                std::string keyword = split(lines[pc], 1)[0];
+
+                while(keyword != "while") {
+                    if(keyword == "endwhile") {
+                        count_endwhile++;
+                    }
+                    
+                    pc--;
+                    keyword = split(lines[pc], 1)[0];
+                }
+
+                count_while++;
                 pc--;
             }
+
+            // Continue from matching while
+            // rather than the line before
+            pc++;
         }
         else if(lineVec[0] == "for") {
             lineVec = split(lineVec[1], 2);
