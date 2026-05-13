@@ -14,6 +14,7 @@ Building on the ground work laid down in Dr. Tratt's tutorial, I have added:
 - `if-else` statements
 - Basic `for` loops
 - `break` statements
+- `continue` statements
 - `print` statements
 - `printline` statements
 - `input` statements
@@ -167,7 +168,7 @@ Note that the loop will run `until` the condition is met.
 As of now, the increment is always by 1.
 
 ### Break statements
-`break` escapes the current loop. It works with both `while` and `for` loops.
+`break` statements escapes the current loop. It works with both `while` and `for` loops.
 
 Example:
 ```
@@ -180,6 +181,25 @@ while x 10 <
         break
      endif
 endwhile
+
+printline ~x
+```
+
+### Continue statements
+`continue` statements skip to the next loop iteration. It works with both `while` and `for` loops.
+
+Example:
+```
+x = 0
+
+for i = 0
+until i 10 ==
+    if i 2 % 0 ==
+        continue
+    endif
+
+    x = x 1 +
+endfor
 
 printline ~x
 ```

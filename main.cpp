@@ -357,12 +357,25 @@ int main() {
             pc++;
             std::string keyword = split(lines[pc], 1)[0];
             
+            // Skip past end of current loop
             while(keyword != "endwhile" && keyword != "endfor") {
                 pc++;
                 keyword = split(lines[pc], 1)[0];
             }
 
             pc++;
+        }
+        else if(lineVec[0] == "continue") {
+            pc++;
+            std::string keyword = split(lines[pc], 1)[0];
+            
+            // Skip to end of current loop
+            while(keyword != "endwhile" && keyword != "endfor") {
+                pc++;
+                keyword = split(lines[pc], 1)[0];
+            }
+
+            // No increment to trigger the endwhile or endfor on next pc
         }
         else if(lineVec[0] == "input") {
             std::string name = lineVec[1];
