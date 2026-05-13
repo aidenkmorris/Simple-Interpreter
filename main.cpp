@@ -353,6 +353,17 @@ int main() {
             vars[name] = std::to_string(std::stoi(vars[name]) + 1);
             pc++;
         }
+        else if(lineVec[0] == "break") {
+            pc++;
+            std::string keyword = split(lines[pc], 1)[0];
+            
+            while(keyword != "endwhile" && keyword != "endfor") {
+                pc++;
+                keyword = split(lines[pc], 1)[0];
+            }
+
+            pc++;
+        }
         else if(lineVec[0] == "input") {
             std::string name = lineVec[1];
 

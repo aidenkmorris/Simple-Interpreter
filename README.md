@@ -13,6 +13,7 @@ Building on the ground work laid down in Dr. Tratt's tutorial, I have added:
 - `if` statements
 - `if-else` statements
 - Basic `for` loops
+- `break` statements
 - `print` statements
 - `printline` statements
 - `input` statements
@@ -164,6 +165,24 @@ endfor
 Note that the loop will run `until` the condition is met.
 
 As of now, the increment is always by 1.
+
+### Break statements
+`break` escapes the current loop. It works with both `while` and `for` loops.
+
+Example:
+```
+x = 0
+
+while x 10 <
+     x = x 1 +
+
+     if x 5 ==
+        break
+     endif
+endwhile
+
+printline ~x
+```
 
 ## Sample programs
 ### Calculate factorial
