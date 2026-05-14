@@ -12,7 +12,14 @@
 #include <unordered_map>
 
 // Global
+// Map variable names to values
 std::unordered_map<std::string, std::string> vars;
+
+// Map function names to PCs
+std::unordered_map<std::string, int> funcs;
+
+// Stack of PCs to continue from after functions return
+std::stack<int> funcCalls;
 
 // My version of Python's split() function.
 // Optional max_split determines number of times to split
@@ -412,6 +419,39 @@ int main() {
 
             // Add newline character if printline
             std::cout << text << ((lineVec[0] == "printline") ? "\n" : "");
+            pc++;
+        }
+        else if(lineVec[0] == "function") {
+            // Map function name to pc
+            std::string name = lineVec[1];
+            funcs[name] = pc;
+            
+            pc++;
+            std::string keyword = split(lines[pc], 1)[0];
+            
+            // Do not run the function. Skip to past endfunction
+            while(keyword != "endfunction") {
+                pc++;
+                keyword = split(lines[pc], 1)[0];
+            }
+
+            pc++;
+        }
+        else if(lineVec[0] == "endfunction") {
+            // This is skipped during function definition.
+            // This is reached only when a function is called.
+            // Return to previous pc.
+            pc = funcCalls.top() + 1;
+            funcCalls.pop();
+        }
+        else if(lineVec[0] == "call") {
+            std::string name = lineVec[1];
+
+            // Save current pc.
+            funcCalls.push(pc);
+
+            // Go-to beginning of function definition.
+            pc = funcs[name];
             pc++;
         }
         else {

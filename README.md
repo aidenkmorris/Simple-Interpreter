@@ -18,6 +18,7 @@ Building on the ground work laid down in Dr. Tratt's tutorial, I have added:
 - `print` statements
 - `printline` statements
 - `input` statements
+- functions
 
 ## Known Issues
 - No proper error handling/messaging is currently present
@@ -204,6 +205,27 @@ endfor
 printline ~x
 ```
 
+### Functions
+```
+function <name>
+    <code>
+endfunction
+
+call <name>
+```
+
+Example:
+```
+function myFunc
+    printline Hello, world!
+endfunction
+
+call myFunc
+```
+Note that functions currently resemble procudures.
+
+As of now, they do not return a value or accept parameters.
+
 ## Sample programs
 ### Calculate factorial
 ```
@@ -340,4 +362,20 @@ while value 1 !=
     steps = steps 1 +
     printline Step ~steps -> ~value
 endwhile
+```
+
+### Recursion
+```
+x = 1
+
+function myFunc
+    printline ~x
+    x = x 1 +
+    
+    if x 5 <=
+        call myFunc
+    endif
+endfunction
+
+call myFunc
 ```
